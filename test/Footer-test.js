@@ -14,8 +14,9 @@ test("Footer - renders", function (assert) {
 	const footer = shallowRenderer.getRenderOutput();
 
 	assert.equal(footer.type, "span", "The main HMTL object is a span");
-	assert.equal(footer.props.children[0], String.fromCharCode(8195), "Spacing between text and button");
+	assert.equal(footer.props.children[0], MESSAGE, "The first element is the message");
 	assert.equal(footer.props.children[1], String.fromCharCode(8195), "Spacing between text and button");
-	assert.equal(footer.props.children[2].type, ButtonLoadMore, "The load more button");
+	assert.equal(footer.props.children[2], String.fromCharCode(8195), "Spacing between text and button");
+	assert.equal(footer.props.children[3].type, ButtonLoadMore, "The load more button");
 	assert.end();
 });
