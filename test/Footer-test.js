@@ -7,7 +7,11 @@ var ButtonLoadMore = require("../lib/ButtonLoadMore");
 var shallowRenderer = TestUtils.createRenderer();
 var MESSAGE = "Test message";
 var BUTTON_TEXT = "Load more";
+var shownRows = 5;
+var totalRows = 10;
 var onClick = function () { };
+var ITEM_NAME = "item";
+var ITEMS_NAME = "items";
 
 test("Footer - renders", function (assert) {
 	shallowRenderer.render(<Footer message={MESSAGE} buttonText={BUTTON_TEXT} onLoadMore={onClick} />);
@@ -18,6 +22,27 @@ test("Footer - renders", function (assert) {
 	assert.equal(footer.props.children[1], String.fromCharCode(8195), "Spacing between text and button");
 	assert.equal(footer.props.children[2], String.fromCharCode(8195), "Spacing between text and button");
 	assert.equal(footer.props.children[3].type, ButtonLoadMore, "The load more button");
+	assert.end();
+});
+
+test("Footer - don't render button", function (assert) {
+	shallowRenderer.render(<Footer itemName={ITEM_NAME} itemsName={ITEMS_NAME} shownRows={0} totalRows={0} />);
+	const noRowsFooter = shallowRenderer.getRenderOutput();
+
+	shallowRenderer.render(<Footer itemName={ITEM_NAME} itemsName={ITEMS_NAME} shownRows={10} totalRows={10} />);
+	const showingAllFooter = shallowRenderer.getRenderOutput();
+
+	assert.ok(noRowsFooter === null, "No footer when totalRows is 0");
+	assert.ok(showingAllFooter.props.children[3] === null, "Shouldn't render button when everything is shown");
+	assert.end();
+});
+
+test("Footer - renders building default messages with shown and total rows", function (assert) {
+	shallowRenderer.render(<Footer itemName={ITEM_NAME} itemsName={ITEMS_NAME} shownRows={shownRows} totalRows={totalRows} onLoadMore={onClick} />);
+	const numberFooter = shallowRenderer.getRenderOutput();
+	assert.equal(numberFooter.type, "span", "Something rendered");
+	assert.equal(numberFooter.props.children[0], "Mostrando 5 items de 10", "The default message built");
+	assert.equal(numberFooter.props.children[3].type, ButtonLoadMore, "The button is rendered");
 	assert.end();
 });
 
