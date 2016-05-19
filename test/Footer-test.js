@@ -20,3 +20,23 @@ test("Footer - renders", function (assert) {
 	assert.equal(footer.props.children[3].type, ButtonLoadMore, "The load more button");
 	assert.end();
 });
+
+test("Footer - null when no text", function (assert) {
+	shallowRenderer.render(<Footer buttonText={BUTTON_TEXT} onLoadMore={onClick} />);
+	const footerMessageUndefined = shallowRenderer.getRenderOutput();
+
+	shallowRenderer.render(<Footer message={null} buttonText={BUTTON_TEXT} onLoadMore={onClick} />);
+	const footerMessageNull = shallowRenderer.getRenderOutput();
+
+	shallowRenderer.render(<Footer message={""} buttonText={BUTTON_TEXT} onLoadMore={onClick} />);
+	const footerEmptyString = shallowRenderer.getRenderOutput();
+
+	shallowRenderer.render(<Footer message={" "} buttonText={BUTTON_TEXT} onLoadMore={onClick} />);
+	const footerSpace = shallowRenderer.getRenderOutput();
+
+	assert.ok(footerMessageUndefined === null, "No footer when message undefined");
+	assert.ok(footerMessageNull === null, "No footer when message null");
+	assert.ok(footerEmptyString === null, "No footer when message empty string");
+	assert.ok(footerSpace === null, "No footer when message is a space");
+	assert.end();
+});

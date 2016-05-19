@@ -1,6 +1,6 @@
 {
   "name": "react-endless-paging-footer",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "A react component for a footer with a message and a button to load more",
   "main": "index.js",
   "scripts": {
