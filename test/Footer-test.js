@@ -79,3 +79,9 @@ test("Footer - load all button", function (assert) {
 	assert.deepEqual(actualButton, expectedButton, "Renders load all button");
 	assert.end();
 });
+
+test("Footer - don't render button loadAll when everything is shown", function (assert) {
+	shallowRenderer.render(<Footer itemName={ITEM_NAME} itemsName={ITEMS_NAME} shownRows={10} totalRows={10} buttonAllText={BUTTON_ALL_TEXT} onLoadAll={onClickAll} />);
+	assert.ok(shallowRenderer.getRenderOutput().props.children[5] === null, "Shouldn't render button when everything is shown");
+	assert.end();
+});
