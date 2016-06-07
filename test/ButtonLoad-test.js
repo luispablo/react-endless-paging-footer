@@ -1,14 +1,14 @@
 var React = require("react");
 var TestUtils = require("react-addons-test-utils");
 var test = require("tape");
-var ButtonLoadMore = require("../lib/ButtonLoadMore");
+var ButtonLoad = require("../lib/ButtonLoad");
 
 var shallowRenderer = TestUtils.createRenderer();
 var MESSAGE = "Load more results";
 var onClick = function () { };
 
-test("ButtonLoadMore - renders", function (assert) {
-	shallowRenderer.render(<ButtonLoadMore message={MESSAGE} onClick={onClick} />);
+test("ButtonLoad - renders", function (assert) {
+	shallowRenderer.render(<ButtonLoad message={MESSAGE} onClick={onClick} />);
 	const button = shallowRenderer.getRenderOutput();
 
 	assert.equal(button.type, "button", "The main HMTL object is a button");
